@@ -1,0 +1,12 @@
+---
+# This task installs pre dependencies of xorg
+- name: Update pacman cache
+  pacman:
+    update_cache: true
+  when: xorg_update_pacman_cache
+
+- name: Installing pre dependencies to use xorg-server
+  pacman:
+    name: libglvnd
+    state: present
+

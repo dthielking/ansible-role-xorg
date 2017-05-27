@@ -1,0 +1,46 @@
+---
+- name: Include OS-specific variables.
+  include_vars: "{{ ansible_os_family }}.yaml"
+
+- name: Installing pre dependencies of xorg-server
+  include: pre_install.yaml
+
+- set_fact:
+    xorg_packages: "{{ __xorg_packages|list }} + {{ xorg_packages|list }}"
+
+- set_fact:
+    xorg_display_manager_package: "{{ __xorg_display_manager_package }}"
+  when: xorg_display_manager_package is not defined
+
+- set_fact:
+    xorg_display_manager_service: "{{ __xorg_display_manager_service }}"
+  when: xorg_display_manager_service is not defined
+
+- set_fact:
+    xorg_fonts: "{{ __xorg_fonts|list }} + {{ xorg_fonts|list }}"
+
+- name: Installing xorg-server and sufficient packages
+  pacman:
+    name: "{{ item }}"
+    state: present
+  with_items: "{{ xorg_packages }}"
+
+- name: Installing xorg-font and user chosen fonts
+  pacman:
+    name: "{{ item }}"
+    state: present
+  with_items: "{{ xorg_fonts }}"
+  notify: Restart {{ xorg_display_manager_service }}
+
+- name: Installing display manager package
+  package:
+    name: "{{ item }}"
+  with_items: "{{ xorg_display_manager_package }}"
+  notify: Restart display manager
+
+- name: Enable "{{ xorg_display_manager_service }}"
+  service:
+    name: "{{ xorg_display_manager_service }}"
+    enabled: True
+    state: started
+
