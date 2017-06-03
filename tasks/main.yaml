@@ -5,18 +5,22 @@
 - name: Installing pre dependencies of xorg-server
   include: pre_install.yaml
 
-- set_fact:
+- name: Merge pre defined xorg packages and packages defined by user
+  set_fact:
     xorg_packages: "{{ __xorg_packages|list }} + {{ xorg_packages|list }}"
 
-- set_fact:
+- name: Set the default display manager xdm
+  set_fact:
     xorg_display_manager_package: "{{ __xorg_display_manager_package }}"
   when: xorg_display_manager_package is not defined
 
-- set_fact:
+- name: Set the default display manager service name
+  set_fact:
     xorg_display_manager_service: "{{ __xorg_display_manager_service }}"
   when: xorg_display_manager_service is not defined
 
-- set_fact:
+- name: Merge default fonts and user defined font
+  set_fact:
     xorg_fonts: "{{ __xorg_fonts|list }} + {{ xorg_fonts|list }}"
 
 - name: Installing xorg-server and sufficient packages
@@ -30,7 +34,7 @@
     name: "{{ item }}"
     state: present
   with_items: "{{ xorg_fonts }}"
-  notify: Restart {{ xorg_display_manager_service }}
+  notify: Restart display manager
 
 - name: Installing display manager package
   package:
