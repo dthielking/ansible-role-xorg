@@ -29,6 +29,14 @@
     state: present
   with_items: "{{ xorg_packages }}"
 
+- name: Setting Keymap and Keyboard modell
+  template:
+    src: 00-keyboard.conf.j2
+    dest: /etc/X11/xorg.conf.d/00-keyboard.conf
+    owner: root
+    group: root
+    mode: 0644
+
 - name: Installing xorg-font and user chosen fonts
   pacman:
     name: "{{ item }}"
