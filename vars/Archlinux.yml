@@ -1,7 +1,4 @@
 ---
-# Swtich to update pacman cache
-xorg_update_pacman_cache: False
-
 # Default Xorg packages to install xorg server
 __xorg_packages:
   - xorg-server
