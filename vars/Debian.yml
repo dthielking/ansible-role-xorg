@@ -1,0 +1,15 @@
+---
+# Default Xorg packages to install xorg server
+__xorg_packages:
+  - xserver-common
+  - x11-server-utils
+  - xinit
+
+# Default xorg-fonts
+__xorg_fonts:
+  - xfonts-100dpi
+  - xfonts-75dpi
+
+# Default display manager to install
+__xorg_display_manager_package: xdm
+__xorg_display_manager_service: xdm
