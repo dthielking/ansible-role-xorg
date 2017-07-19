@@ -4,4 +4,4 @@
   pacman:
     name: libglvnd
     state: present
-
+  when: ansible_os_family == Archlinux
