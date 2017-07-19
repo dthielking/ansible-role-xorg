@@ -8,6 +8,7 @@
 - name: Merge pre defined xorg packages and packages defined by user
   set_fact:
     xorg_packages: "{{ __xorg_packages|list }} + {{ xorg_packages|list }}"
+  when: xorg_packages is defined
 
 - name: Set the default display manager xdm
   set_fact:
