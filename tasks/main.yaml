@@ -23,6 +23,7 @@
 - name: Merge default fonts and user defined font
   set_fact:
     xorg_fonts: "{{ __xorg_fonts|list }} + {{ xorg_fonts|list }}"
+  when: xorg_fonts is defined
 
 - name: Installing xorg-server and sufficient packages
   pacman:
