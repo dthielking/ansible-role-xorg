@@ -7,8 +7,8 @@
 
 - name: Merge pre defined xorg packages and packages defined by user
   set_fact:
-    xorg_packages: "{{ __xorg_packages|list }} + {{ xorg_packages|list }}"
-  when: xorg_packages is defined
+    xorg_packages: "{{ __xorg_packages|list }}"
+  when: xorg_packages is not defined
 
 - name: Set the default display manager xdm
   set_fact:
@@ -22,8 +22,8 @@
 
 - name: Merge default fonts and user defined font
   set_fact:
-    xorg_fonts: "{{ __xorg_fonts|list }} + {{ xorg_fonts|list }}"
-  when: xorg_fonts is defined
+    xorg_fonts: "{{ __xorg_fonts|list }}"
+  when: xorg_fonts is not defined
 
 - name: Installing xorg-server and sufficient packages
   pacman:
