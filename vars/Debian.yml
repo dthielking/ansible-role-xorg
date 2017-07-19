@@ -2,7 +2,7 @@
 # Default Xorg packages to install xorg server
 __xorg_packages:
   - xserver-common
-  - x11-server-utils
+  - x11-xserver-utils
   - xinit
 
 # Default xorg-fonts
