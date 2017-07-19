@@ -26,7 +26,7 @@
   when: xorg_fonts is not defined
 
 - name: Installing xorg-server and sufficient packages
-  pacman:
+  package:
     name: "{{ item }}"
     state: present
   with_items: "{{ xorg_packages }}"
@@ -40,7 +40,7 @@
     mode: 0644
 
 - name: Installing xorg-font and user chosen fonts
-  pacman:
+  package:
     name: "{{ item }}"
     state: present
   with_items: "{{ xorg_fonts }}"
