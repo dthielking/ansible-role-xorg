@@ -11,5 +11,5 @@ __xorg_fonts:
   - xfonts-75dpi
 
 # Default display manager to install
-__xorg_display_manager_package: xdm
-__xorg_display_manager_service: xdm
+__xorg_display_manager_package: lightdm
+__xorg_display_manager_service: lightdm
